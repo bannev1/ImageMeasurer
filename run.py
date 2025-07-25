@@ -7,7 +7,7 @@ from measurer import measure
 
 if __name__ == '__main__':
     # Set parameters
-    IMAGE_PATH = r"./images/multipleCards.jpg"
+    IMAGE_PATH = r"./images/testing.jpeg"
 
     if not exists(IMAGE_PATH):
         raise FileNotFoundError("Image not found")
@@ -15,7 +15,7 @@ if __name__ == '__main__':
     FIDUCIAL_SIZE = (7.5, 7.5) # In cm (w x h)
     MINAREA = 20
     THICKNESS = 5
-    TEXT_SIZE = 5
+    TEXT_SIZE = 7
 
     # Get sizes
     fidWidth, fidHeight = FIDUCIAL_SIZE
