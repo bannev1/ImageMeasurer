@@ -7,12 +7,15 @@ from measurer import measure
 
 if __name__ == '__main__':
     # Set parameters
-    IMAGE_PATH = r"./images/testing.jpeg"
+    IMAGE_PATH = r"./images/multipleCards.jpg"
+
+    if not exists(IMAGE_PATH):
+        raise FileNotFoundError("Image not found")
 
     FIDUCIAL_SIZE = (7.5, 7.5) # In cm (w x h)
     MINAREA = 20
     THICKNESS = 5
-    TEXT_SIZE = 10
+    TEXT_SIZE = 5
 
     # Get sizes
     fidWidth, fidHeight = FIDUCIAL_SIZE
@@ -22,7 +25,7 @@ if __name__ == '__main__':
 
     # Get final image
     finalSizeImg = measure(IMAGE_PATH, reference, fidWidth, fidHeight, MINAREA, THICKNESS, TEXT_SIZE)
-
+    
     cv2.imwrite('./output/result.jpg', finalSizeImg)
 
     # Output/Window

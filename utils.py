@@ -78,16 +78,16 @@ def img_warp(img, src, dst, inv=False, offset=False,offset_val=10):
 
     if offset == True:
         warp_offset = offset_val
-    
-    if offset == True:
         timg = img[warp_offset:warp_offset+img_h, 0: img_w]
     else:
         timg = img
     
+    flag = cv2.INTER_LANCZOS4
+
     if inv == False:
-        ret = cv2.warpPerspective(timg, wmat , ( img_w, img_h),flags=cv2.INTER_LANCZOS4)
+        ret = cv2.warpPerspective(timg, wmat , ( img_w, img_h),flags=flag)
     else:
-        ret = cv2.warpPerspective(timg, wmat_inv , ( img_w, img_h), flags=cv2.INTER_LANCZOS4)
+        ret = cv2.warpPerspective(timg, wmat_inv , ( img_w, img_h), flags=flag)
     return ret
 
 
@@ -137,17 +137,30 @@ def warpImage(img, points, w, h):
     # matrix = cv2.getPerspectiveTransform(pts1, pts2)
     # imgWarp = cv2.warpPerspective(img, matrix, (w, h), cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT, borderValue=(0,0,0))
 
-    imgWarp = img_warp(img.copy(), pts1, pts2, offset=True)
-
-    test = cv2.rectangle(imgWarp.copy(), tuple(map(int, pts2[0])), tuple(map(int, pts2[-1])), (255, 0, 0), 5)
-    cv2.imwrite('./test.jpeg', test)
+    imgWarp = img_warp(img.copy(), pts1, pts2)
 
     scale = (relWidth//w + relHeight//h)//2 # Size difference
 
-    print(scale)
+    # print(scale)
 
     return imgWarp, scale
 
 
 def findDistance(pts1, pts2):
     return ((pts2[0] - pts1[0])**2 + (pts2[1] - pts1[1])**2)**0.5
+
+
+def imagePreprocessing(img):
+    # From https://medium.com/arnekt-ai/shadow-removal-with-open-cv-71e030eadaf5
+    rgb_planes = cv2.split(img)
+    result_norm_planes = []
+
+    for plane in rgb_planes:
+        dilated_img = cv2.dilate(plane, np.ones((7,7), np.uint8))
+        bg_img = cv2.medianBlur(dilated_img, 21)
+        diff_img = 255 - cv2.absdiff(plane, bg_img)
+        norm_img = cv2.normalize(diff_img,None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8UC1)
+        result_norm_planes.append(norm_img)
+    shadowremov = cv2.merge(result_norm_planes)
+
+    return shadowremov

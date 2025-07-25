@@ -3,11 +3,14 @@ import numpy as np
 import utils
 
 
-def measure(imgPath: str, refObjPoints: np.ndarray, refWidth: int, refHeight: int, minArea: int, thickness: int = 1, textSize: int = 2) -> np.ndarray:
+def measure(imgPath: str, refObjPoints: np.ndarray, refWidth: int, refHeight: int, minArea: int, thickness: int = 1, textSize: int = 2, preprocessImg: bool = False) -> np.ndarray:
     """
     Adapted from https://github.com/alexyev/ObjectSizeEstimation/blob/master/ObjectMeasurement.py
     """
     img = cv2.imread(imgPath)
+
+    if preprocessImg:
+        img = utils.imagePreprocessing(img)
     
     # Warp image
     imgWarp, scaleFactor = utils.warpImage(
