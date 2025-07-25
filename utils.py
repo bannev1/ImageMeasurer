@@ -139,7 +139,12 @@ def warpImage(img, points, w, h):
 
     imgWarp = img_warp(img.copy(), pts1, pts2, offset=True)
 
-    scale = relWidth//w # Size difference
+    test = cv2.rectangle(imgWarp.copy(), tuple(map(int, pts2[0])), tuple(map(int, pts2[-1])), (255, 0, 0), 5)
+    cv2.imwrite('./test.jpeg', test)
+
+    scale = (relWidth//w + relHeight//h)//2 # Size difference
+
+    print(scale)
 
     return imgWarp, scale
 
