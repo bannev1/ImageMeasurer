@@ -16,7 +16,7 @@
 
 ## Introduction
 
-This project allows you to upload an image with a reference [AprilTag](https://github.com/AprilRobotics/apriltag) to add annotations, measuring the sizes of objects in that image. See the [example](#example) section for an example.
+This project allows you to upload an image with a reference [AprilTag](https://github.com/AprilRobotics/apriltag) to add annotations, measuring the sizes of objects in that image using Python and OpenCV. See the [example](#example) section for an example.
 
 ## Installation
 
