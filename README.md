@@ -11,11 +11,12 @@
   - [Introduction](#introduction)
   - [Installation](#installation)
   - [Usage](#usage)
+  - [Example](#example)
   - [Contributing](#contributing)
 
 ## Introduction
 
-This project allows you to upload an image with a reference [AprilTag](https://github.com/AprilRobotics/apriltag) an
+This project allows you to upload an image with a reference [AprilTag](https://github.com/AprilRobotics/apriltag) to add annotations, measuring the sizes of objects in that image. See the [example](#example) section for an example.
 
 ## Installation
 
@@ -44,6 +45,8 @@ Once the program has run, the resulting image with the sizes annotated will be s
 
 > [!NOTE]
 > Note that for best accuracy, please try to upload pictures with the least amount of shadow and with a large amount of lighting, and preferrably on a **white and simple background**. It is best to also take a bird's-eye-view image of the desired objects.
+
+## Example
 
 | ![](./images/testing.jpeg) | ![](./output/result.jpg) |
 | - | - |
